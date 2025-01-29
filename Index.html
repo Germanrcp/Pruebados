@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta Regresiva</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        #countdown { font-size: 2em; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Mi Evento Especial</h1>
+    <p>Faltan:</p>
+    <div id="countdown"></div>
+
+    <script>
+        function iniciarCuentaRegresiva(fechaObjetivo) {
+            function actualizarCronometro() {
+                const ahora = new Date().getTime();
+                const diferencia = fechaObjetivo - ahora;
+
+                if (diferencia <= 0) {
+                    document.getElementById("countdown").innerHTML = "¡Tiempo cumplido!";
+                    clearInterval(intervalo);
+                    return;
+                }
+
+                const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+                document.getElementById("countdown").innerHTML = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+            }
+
+            actualizarCronometro();
+            const intervalo = setInterval(actualizarCronometro, 1000);
+        }
+
+        // Configurar la fecha objetivo (formato: Año, Mes (0-11), Día, Hora, Minuto, Segundo)
+        const fechaObjetivo = new Date(2025, 2, 1, 12, 0, 0).getTime();
+        iniciarCuentaRegresiva(fechaObjetivo);
+    </script>
+</body>
+</html>
